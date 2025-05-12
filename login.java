@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class registro {
+public class login {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Cadastro");
+        JFrame frame = new JFrame("Login");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 400);
         frame.setLocationRelativeTo(null);
@@ -22,9 +22,9 @@ public class registro {
         textoEasy.setFont(new Font("Arial", Font.PLAIN, 20));
         textoEasy.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel textoCadastre = new JLabel("Cadastre-se");
-        textoCadastre.setFont(new Font("Arial", Font.PLAIN, 20));
-        textoCadastre.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel textoLogin = new JLabel("Login");
+        textoLogin.setFont(new Font("Arial", Font.PLAIN, 20));
+        textoLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton botaoVoltar = new JButton("Voltar");
         botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -34,55 +34,40 @@ public class registro {
         painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 10)));
         painelEsquerdo.add(textoEasy);
         painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 10)));
-        painelEsquerdo.add(textoCadastre);
+        painelEsquerdo.add(textoLogin);
         painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 30)));
         painelEsquerdo.add(botaoVoltar);
         painelEsquerdo.add(Box.createVerticalGlue());
+
 
         JPanel painelDireito = new JPanel();
         painelDireito.setLayout(new BoxLayout(painelDireito, BoxLayout.Y_AXIS));
         painelDireito.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
-        painelDireito.add(Box.createVerticalGlue()); 
-
-        JLabel criarConta = new JLabel("CRIAR CONTA");
-        criarConta.setFont(new Font("Arial", Font.BOLD, 22));
-        criarConta.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelDireito.add(criarConta);
-
-        painelDireito.add(Box.createRigidArea(new Dimension(0, 20)));
-
-        JTextField campoNome = new JTextField();
-        campoNome.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-        campoNome.setBorder(BorderFactory.createTitledBorder("Nome"));
-        painelDireito.add(campoNome);
-
-        painelDireito.add(Box.createRigidArea(new Dimension(0, 10)));
+        JLabel entrarConta = new JLabel("ENTRAR");
+        entrarConta.setFont(new Font("Arial", Font.BOLD, 22));
+        entrarConta.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField campoEmail = new JTextField();
         campoEmail.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
         campoEmail.setBorder(BorderFactory.createTitledBorder("Email"));
-        painelDireito.add(campoEmail);
-
-        painelDireito.add(Box.createRigidArea(new Dimension(0, 10)));
 
         JPasswordField campoSenha = new JPasswordField();
         campoSenha.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
         campoSenha.setBorder(BorderFactory.createTitledBorder("Senha"));
-        painelDireito.add(campoSenha);
 
-        painelDireito.add(Box.createRigidArea(new Dimension(0, 10)));
+        JButton botaoEntrar = new JButton("ENTRAR");
+        botaoEntrar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPasswordField campoConfirma = new JPasswordField();
-        campoConfirma.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-        campoConfirma.setBorder(BorderFactory.createTitledBorder("Confirmar senha"));
-        painelDireito.add(campoConfirma);
+        painelDireito.add(Box.createVerticalGlue());
 
+        painelDireito.add(entrarConta);
         painelDireito.add(Box.createRigidArea(new Dimension(0, 20)));
-
-        JButton botaoCriar = new JButton("CRIAR");
-        botaoCriar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelDireito.add(botaoCriar);
+        painelDireito.add(campoEmail);
+        painelDireito.add(Box.createRigidArea(new Dimension(0, 10)));
+        painelDireito.add(campoSenha);
+        painelDireito.add(Box.createRigidArea(new Dimension(0, 20)));
+        painelDireito.add(botaoEntrar);
 
         painelDireito.add(Box.createVerticalGlue());
 
@@ -92,20 +77,20 @@ public class registro {
         frame.add(painelPrincipal);
         frame.setVisible(true);
 
-        botaoCriar.addActionListener(e -> {
+        botaoEntrar.addActionListener(e -> {
+            String email = campoEmail.getText();
             String senha = new String(campoSenha.getPassword());
-            String confirma = new String(campoConfirma.getPassword());
-            if (!senha.equals(confirma)) {
-                JOptionPane.showMessageDialog(frame, "As senhas não coincidem!");
+            
+            if (email.isEmpty() || senha.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Preencha todos os campos!");
             } else {
-                JOptionPane.showMessageDialog(frame, "Cadastro realizado com sucesso!");
-                frame.dispose(); 
-                login.main(null);
+               
+                JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!");
             }
         });
 
         botaoVoltar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(frame, "Voltando...");
+            frame.dispose();           
         });
     }
 }
