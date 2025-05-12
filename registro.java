@@ -5,7 +5,7 @@ public class registro {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Cadastro");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 400);
+        frame.setSize(1000, 600);
         frame.setLocationRelativeTo(null);
 
         JPanel painelPrincipal = new JPanel(new GridLayout(1, 2));
