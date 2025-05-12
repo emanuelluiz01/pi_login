@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class CadastroFaculdade {
+public class registro {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Cadastro");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
