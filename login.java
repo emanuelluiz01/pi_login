@@ -78,16 +78,17 @@ public class login {
         frame.setVisible(true);
 
         botaoEntrar.addActionListener(e -> {
-            String email = campoEmail.getText();
-            String senha = new String(campoSenha.getPassword());
-            
-            if (email.isEmpty() || senha.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Preencha todos os campos!");
-            } else {
-               
-                JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!");
-            }
-        });
+          String email = campoEmail.getText();
+          String senha = new String(campoSenha.getPassword());
+          
+          if (email.isEmpty() || senha.isEmpty()) {
+              JOptionPane.showMessageDialog(frame, "Preencha todos os campos!");
+          } else {
+              JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!");
+              frame.dispose(); 
+              new TelaGastos().setVisible(true); 
+          }
+      });
 
         botaoVoltar.addActionListener(e -> {
             frame.dispose();           
