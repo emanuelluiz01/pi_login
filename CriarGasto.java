@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class CriarGasto extends JFrame {
     private JPanel painelCards;
     private ArrayList<Gasto> listaGastos;
+    private static double totalGastos = 0;
 
     public CriarGasto() {
         setTitle("Gastos - EASY");
@@ -15,6 +16,7 @@ public class CriarGasto extends JFrame {
         setLayout(new BorderLayout());
 
         listaGastos = new ArrayList<>();
+        GerenciadorGastos gerenciador = GerenciadorGastos.getInstance();
 
         JPanel topo = new JPanel();
         topo.setBackground(Color.WHITE);
@@ -53,7 +55,7 @@ public class CriarGasto extends JFrame {
                     dispose();
                     // new TelaSaldo().setVisible(true);
                 } else if (menu.equals("Gastos")) {
-                    // já está na tela
+              
                 }
             });
         }
@@ -98,10 +100,11 @@ public class CriarGasto extends JFrame {
 
         botaoAdd.addActionListener(e -> abrirModalNovoGasto());
 
-        adicionarGasto("ACADEMIA", 120);
-        adicionarGasto("CONTA DE ÁGUA", 210);
-        adicionarGasto("MERCADO", 1500);
-        adicionarGasto("FARMÁCIA", 150);
+        adicionarGasto(new Gasto("ACADEMIA", 120));
+        adicionarGasto(new Gasto("FARMÁCIA", 150));
+        
+        totalGastos = listaGastos.stream().mapToDouble(g -> g.valor).sum();
+        PainelGeral.atualizarGastos(totalGastos);
     }
 
     private void abrirModalNovoGasto() {
@@ -158,7 +161,10 @@ public class CriarGasto extends JFrame {
             if (!nome.isEmpty() && !valorStr.isEmpty()) {
                 try {
                     double valor = Double.parseDouble(valorStr.replace(",", "."));
-                    adicionarGasto(nome, valor);
+                    Gasto gasto = new Gasto(nome, valor);
+                    adicionarGasto(gasto);
+                    totalGastos += valor;
+                    PainelGeral.atualizarGastos(totalGastos);
                     modal.dispose();
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(modal, "Valor inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -190,8 +196,7 @@ public class CriarGasto extends JFrame {
         return painel;
     }
 
-    private void adicionarGasto(String nome, double valor) {
-        Gasto gasto = new Gasto(nome, valor);
+    private void adicionarGasto(Gasto gasto) {
         listaGastos.add(gasto);
 
         if (painelCards.getComponentCount() > 0) {
@@ -236,6 +241,8 @@ public class CriarGasto extends JFrame {
             }
             painelCards.remove(card);
             listaGastos.remove(gasto);
+            totalGastos -= gasto.valor;
+            PainelGeral.atualizarGastos(totalGastos);
             painelCards.revalidate();
             painelCards.repaint();
         });

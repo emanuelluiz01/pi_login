@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PainelGeral extends JFrame {
+    private JLabel lblSaidaValor;
+    private static double totalGastos = 0;
+
     public PainelGeral() {
         setTitle("Painel Geral");
         setSize(1000, 600);
@@ -49,7 +52,6 @@ public class PainelGeral extends JFrame {
                     dispose();
                     new CriarGasto().setVisible(true);
                 } else if (menu.equals("Geral")) {
-                    // já está na tela
                 }
             });
         }
@@ -137,6 +139,7 @@ public class PainelGeral extends JFrame {
         cardSaida.add(painelTituloSaida);
 
         JLabel lblSaidaValor = new JLabel("R$0", SwingConstants.CENTER);
+        this.lblSaidaValor = lblSaidaValor;
         lblSaidaValor.setFont(new Font("Arial", Font.BOLD, 32));
         lblSaidaValor.setForeground(new Color(61, 94, 87));
         lblSaidaValor.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -181,7 +184,23 @@ public class PainelGeral extends JFrame {
         painelCentral.add(painelSaldo);
 
         add(painelCentral, BorderLayout.CENTER);
+
+        atualizarValorSaida(totalGastos);
+
         setVisible(true);
+    }
+
+    public static void atualizarGastos(double valor) {
+        totalGastos = valor;
+        for (Window window : Window.getWindows()) {
+            if (window instanceof PainelGeral) {
+                ((PainelGeral) window).atualizarValorSaida(valor);
+            }
+        }
+    }
+
+    private void atualizarValorSaida(double valor) {
+        lblSaidaValor.setText(String.format("R$%.2f", valor));
     }
 
     public static void main(String[] args) {
