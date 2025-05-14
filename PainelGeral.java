@@ -7,7 +7,6 @@ public class PainelGeral extends JFrame {
         setSize(1000, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
 
         setBackground(new Color(58, 191, 170));
         setLayout(new BorderLayout());
@@ -26,6 +25,7 @@ public class PainelGeral extends JFrame {
         painelMenus.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 12, 0, 12);
+
         String[] menus = {"Geral", "Saldo", "Gastos", "Investimentos", "Calendário"};
         for (String menu : menus) {
             JButton btn = new JButton(menu);
@@ -40,6 +40,18 @@ public class PainelGeral extends JFrame {
             btn.setFocusPainted(false);
             btn.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
             painelMenus.add(btn, gbc);
+
+            btn.addActionListener(e -> {
+                if (menu.equals("Saldo")) {
+                    dispose();
+                    // new TelaSaldo().setVisible(true);
+                } else if (menu.equals("Gastos")) {
+                    dispose();
+                    new CriarGasto().setVisible(true);
+                } else if (menu.equals("Geral")) {
+                    // já está na tela
+                }
+            });
         }
         topo.add(painelMenus, BorderLayout.CENTER);
 
@@ -169,7 +181,10 @@ public class PainelGeral extends JFrame {
         painelCentral.add(painelSaldo);
 
         add(painelCentral, BorderLayout.CENTER);
+        setVisible(true);
     }
 
-
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new PainelGeral());
+    }
 }

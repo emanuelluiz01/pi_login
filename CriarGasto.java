@@ -44,6 +44,18 @@ public class CriarGasto extends JFrame {
             btn.setFocusPainted(false);
             btn.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
             painelMenus.add(btn, gbc);
+
+            btn.addActionListener(e -> {
+                if (menu.equals("Geral")) {
+                    dispose();
+                    new PainelGeral().setVisible(true);
+                } else if (menu.equals("Saldo")) {
+                    dispose();
+                    // new TelaSaldo().setVisible(true);
+                } else if (menu.equals("Gastos")) {
+                    // já está na tela
+                }
+            });
         }
         topo.add(painelMenus, BorderLayout.CENTER);
 
