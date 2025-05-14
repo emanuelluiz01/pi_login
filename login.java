@@ -1,5 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class login {
     public static void main(String[] args) {
@@ -26,7 +26,11 @@ public class login {
         textoLogin.setFont(new Font("Arial", Font.PLAIN, 20));
         textoLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton botaoVoltar = new JButton("Voltar");
+        JButton botaoVoltar = new JButton("Registro");
+        botaoVoltar.addActionListener((e) -> {
+          frame.dispose();
+          registro.main(null);
+        });
         botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         painelEsquerdo.add(Box.createVerticalGlue());

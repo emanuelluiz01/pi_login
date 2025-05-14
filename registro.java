@@ -1,5 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class registro {
     public static void main(String[] args) {
@@ -26,8 +26,8 @@ public class registro {
         textoCadastre.setFont(new Font("Arial", Font.PLAIN, 20));
         textoCadastre.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton botaoVoltar = new JButton("Voltar");
-        botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // JButton botaoVoltar = new JButton("Voltar");
+        // botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         painelEsquerdo.add(Box.createVerticalGlue());
         painelEsquerdo.add(titulo);
@@ -36,7 +36,7 @@ public class registro {
         painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 10)));
         painelEsquerdo.add(textoCadastre);
         painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 30)));
-        painelEsquerdo.add(botaoVoltar);
+        // painelEsquerdo.add(botaoVoltar);
         painelEsquerdo.add(Box.createVerticalGlue());
 
         JPanel painelDireito = new JPanel();
@@ -104,8 +104,8 @@ public class registro {
             }
         });
 
-        botaoVoltar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(frame, "Voltando...");
-        });
+        // botaoVoltar.addActionListener(e -> {
+        //     JOptionPane.showMessageDialog(frame, "Voltando...");
+        // });
     }
 }
