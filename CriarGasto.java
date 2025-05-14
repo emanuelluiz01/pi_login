@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class TelaGastos extends JFrame {
+public class CriarGasto extends JFrame {
     private JPanel painelCards;
     private ArrayList<Gasto> listaGastos;
 
-    public TelaGastos() {
+    public CriarGasto() {
         setTitle("Gastos - EASY");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 550);
+        setSize(1000, 600);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -18,13 +18,18 @@ public class TelaGastos extends JFrame {
 
         JPanel topo = new JPanel();
         topo.setBackground(Color.WHITE);
-        topo.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
-        topo.setPreferredSize(new Dimension(900, 60));
+        topo.setLayout(new BorderLayout());
+        topo.setPreferredSize(new Dimension(1000, 60));
 
         JLabel logo = new JLabel("EASY");
         logo.setFont(new Font("Arial", Font.BOLD, 28));
-        topo.add(logo);
+        logo.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        topo.add(logo, BorderLayout.WEST);
 
+        JPanel painelMenus = new JPanel(new GridBagLayout());
+        painelMenus.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 12, 0, 12);
         String[] menus = {"Geral", "Saldo", "Gastos", "Investimentos", "Calendário"};
         for (String menu : menus) {
             JButton btn = new JButton(menu);
@@ -38,14 +43,21 @@ public class TelaGastos extends JFrame {
             btn.setFont(new Font("Arial", Font.BOLD, 16));
             btn.setFocusPainted(false);
             btn.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
-            topo.add(btn);
+            painelMenus.add(btn, gbc);
         }
+        topo.add(painelMenus, BorderLayout.CENTER);
+
+        JPanel espacoDireita = new JPanel();
+        espacoDireita.setBackground(Color.WHITE);
+        espacoDireita.setPreferredSize(new Dimension(logo.getPreferredSize().width, 10));
+        topo.add(espacoDireita, BorderLayout.EAST);
 
         add(topo, BorderLayout.NORTH);
 
         painelCards = new JPanel();
         painelCards.setBackground(new Color(58, 191, 170));
         painelCards.setLayout(new BoxLayout(painelCards, BoxLayout.Y_AXIS));
+        painelCards.add(Box.createVerticalStrut(20));
 
         JPanel painelCardsWrapper = new JPanel(new BorderLayout());
         painelCardsWrapper.setBackground(new Color(58, 191, 170));
@@ -59,7 +71,7 @@ public class TelaGastos extends JFrame {
         add(scroll, BorderLayout.CENTER);
 
         JButton botaoAdd = new JButton("+");
-        botaoAdd.setFont(new Font("Arial", Font.BOLD, 36));
+        botaoAdd.setFont(new Font("Arial", Font.BOLD, 24));
         botaoAdd.setBackground(new Color(44, 102, 97));
         botaoAdd.setForeground(Color.WHITE);
         botaoAdd.setFocusPainted(false);
@@ -74,7 +86,6 @@ public class TelaGastos extends JFrame {
 
         botaoAdd.addActionListener(e -> abrirModalNovoGasto());
 
-        adicionarGasto("RESERVA MENSAL", 400);
         adicionarGasto("ACADEMIA", 120);
         adicionarGasto("CONTA DE ÁGUA", 210);
         adicionarGasto("MERCADO", 1500);
@@ -170,9 +181,12 @@ public class TelaGastos extends JFrame {
     private void adicionarGasto(String nome, double valor) {
         Gasto gasto = new Gasto(nome, valor);
         listaGastos.add(gasto);
-        painelCards.add(Box.createVerticalStrut(10));
+
+        if (painelCards.getComponentCount() > 0) {
+            painelCards.add(Box.createVerticalStrut(10));
+        }
         painelCards.add(criarCardGasto(gasto));
-        painelCards.add(Box.createVerticalStrut(10)); 
+
         painelCards.revalidate();
         painelCards.repaint();
     }
@@ -192,8 +206,33 @@ public class TelaGastos extends JFrame {
         valor.setFont(new Font("Arial", Font.BOLD, 18));
         valor.setForeground(new Color(51, 102, 102));
 
+        JPanel painelDireita = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        painelDireita.setOpaque(false);
+        painelDireita.add(valor);
+
+        JButton btnExcluir = new JButton("X");
+        btnExcluir.setFont(new Font("Arial", Font.BOLD, 16));
+        btnExcluir.setForeground(Color.WHITE);
+        btnExcluir.setBackground(new Color(220, 53, 69));
+        btnExcluir.setFocusPainted(false);
+        btnExcluir.setBorder(BorderFactory.createEmptyBorder(4, 12, 4, 12));
+        btnExcluir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnExcluir.addActionListener(e -> {
+            int idx = painelCards.getComponentZOrder(card);
+            if (idx > 0) {
+                painelCards.remove(idx - 1);
+            }
+            painelCards.remove(card);
+            listaGastos.remove(gasto);
+            painelCards.revalidate();
+            painelCards.repaint();
+        });
+
+        painelDireita.add(Box.createHorizontalStrut(12));
+        painelDireita.add(btnExcluir);
+
         card.add(nome, BorderLayout.WEST);
-        card.add(valor, BorderLayout.EAST);
+        card.add(painelDireita, BorderLayout.EAST);
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         return card;
     }
@@ -209,6 +248,6 @@ public class TelaGastos extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaGastos().setVisible(true));
+        SwingUtilities.invokeLater(() -> new CriarGasto().setVisible(true));
     }
 }
