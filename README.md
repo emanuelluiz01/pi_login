@@ -10,25 +10,70 @@ Ideal tanto para uso acadêmico quanto para o gerenciamento cotidiano de finanç
 
 <br>
 
+## **🎯 Descrição da Proposta**
+
+O sistema foi desenvolvido considerando a organização das movimentações financeiras do usuário em três categorias principais: **entradas, gastos e investimentos**. As entidades foram escolhidas com base nos elementos essenciais de qualquer controle financeiro pessoal. A seguir estão as principais entidades e seus relacionamentos:
+
+- **Usuário:** acessa e gerencia seus próprios dados financeiros.
+- **Movimentação:** representa qualquer entrada ou saída financeira.
+- **Categoria:** define o tipo da movimentação (ex: alimentação, salário, lazer).
+- **Investimento:** entidade separada com campos específicos como rendimento.
+
+As entidades se relacionam de forma que cada movimentação pertence a um usuário e pode estar vinculada a uma categoria. Os investimentos também pertencem a usuários e armazenam valores e datas de rendimento.
+
+<br>
+
 ## **🖥️ Descrição das Telas**
 
-- **Tela de Login**  
-  Campos: e-mail e senha.
+### **Tela de Login**
 
-- **Tela de Cadastro**  
-  Campos: nome, e-mail, senha e confirmar senha.
+- **Campos de cadastro:** e-mail, senha.
+- **Campos obrigatórios:** todos.
+- **Validações:** formato de e-mail e senha obrigatória.
+- **Fluxo de edição:** não aplicável.
+- **Fluxo de exclusão:** não aplicável.
 
-- **Tela Geral**  
-  Exibe totais de gastos, investimentos e notas, além de um gráfico interativo com seleção de períodos específicos.
+### **Tela de Cadastro**
 
-- **Tela de Saldo**  
-  Mostra o valor total de entradas e gastos de forma comparativa.
+- **Campos de cadastro:** nome, e-mail, senha, confirmar senha.
+- **Campos obrigatórios:** todos.
+- **Validações:**
+  - Nome não pode estar vazio.
+  - E-mail precisa conter “@” e domínio válido.
+  - Senha e confirmação devem ser iguais.
 
-- **Tela de Gastos**  
-  Lista todos os gastos realizados com valor total somado.
+### **Tela Geral**
 
-- **Tela de Investimentos**  
-  Exibe os investimentos registrados e um gráfico lateral com os rendimentos acumulados.
+- Exibe:
+  - Total de **gastos**, **investimentos** e **notas**.
+  - **Gráfico interativo** com seleção de períodos.
+
+### **Tela de Saldo**
+
+- Exibe:
+  - Comparativo entre **entradas** e **gastos**.
+  - Indicadores de saldo disponível.
+
+### **Tela de Gastos**
+
+- **Dados de listagem:** nome do gasto, valor, data, categoria.
+- **Campos de busca:** por data, valor e categoria.
+- **Campos editáveis:** nome do gasto, valor e categoria.
+- **Fluxo de edição:** ao clicar em "Editar", campos se tornam editáveis.
+- **Fluxo de exclusão:** botão de exclusão com confirmação.
+
+### **Tela de Investimentos**
+
+- **Dados de listagem:** nome, valor investido, rendimento, data.
+- **Campos de busca:** por nome e data.
+- **Campos editáveis:** valor investido e rendimento.
+- **Fluxo de edição:** semelhante ao da tela de gastos.
+- **Fluxo de exclusão:** com confirmação.
+
+### **Tela de Filtro por Data**
+
+- **Campos de busca:** data de início e fim.
+- **Validações:** datas devem ser válidas e em ordem cronológica.
 
 <br>
 
@@ -36,11 +81,17 @@ Ideal tanto para uso acadêmico quanto para o gerenciamento cotidiano de finanç
 
 ### **🔐 Tela de Cadastro**
 
-- Verificação de preenchimento do campo **nome** (não pode estar vazio).
-- Verificação de **formato e preenchimento do e-mail** (deve conter “@” e domínio válido).
-- Comparação entre os campos **senha** e **confirmar senha** (devem ser iguais).
+- Verificação do campo **nome** (obrigatório).
+- Verificação de **formato de e-mail**.
+- Comparação entre **senha** e **confirmar senha**.
 
 ### **🔓 Tela de Login**
 
-- Verificação de **formato e preenchimento** do campo **e-mail**.
-- Verificação de **preenchimento** do campo **senha**.
+- Verificação de preenchimento dos campos **e-mail** e **senha**.
+- Validação de formato de e-mail.
+
+<br>
+
+## **🧩 Diagrama de Classes**
+
+![Diagrama de Classes](./Diagrama.jpg)
