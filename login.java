@@ -90,7 +90,7 @@ public class login {
           } else {
               JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!");
               frame.dispose(); 
-              new PainelGeral(); 
+              new PainelGeral().setVisible(true);
           }
       });
 
